@@ -1,31 +1,33 @@
 using Godot;
 using System;
 
-public partial class player : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 
 	[Export]
 	public int Speed { get; set; } = 8 * 16;
 
-	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public void GetInput()
 	{
-
-	}
-
-	// Gets user input for player character
-	public void GetInput(){
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-		Velocity = inputDirection * Speed;
+		Velocity = Velocity.Lerp(inputDirection * Speed, (float) 0.1);
+
+		if(Input.IsActionJustPressed("shoot")){
+			GD.Print("Mouse Button Clicked!");
+
+			var bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
+			var bulletInstance = bulletScene.Instantiate<Bullet>();
+			bulletInstance.Position = this.Position;
+			bulletInstance.SetDirection(Vector2.Right);
+
+			AddChild(bulletInstance);
+
+		}
 	}
-
-
-
-	// Called every physics frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
 		GetInput();
 		MoveAndSlide();
 	}
+
 }

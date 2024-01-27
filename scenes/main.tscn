@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8xxaoexcw0i6"]
 
-[ext_resource type="PackedScene" uid="uid://csp2tes454qay" path="res://scenes/player.tscn" id="1_ou6b0"]
-[ext_resource type="Texture2D" uid="uid://7vp1tmo5aol1" path="res://assets/spritesheet-Sheet.png" id="2_cdlc2"]
+[ext_resource type="Texture2D" uid="uid://7vp1tmo5aol1" path="res://assets/spritesheet-Sheet.png" id="1_32kcm"]
+[ext_resource type="PackedScene" uid="uid://csp2tes454qay" path="res://scenes/Player.tscn" id="2_cmoog"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4rtya"]
-texture = ExtResource("2_cdlc2")
+texture = ExtResource("1_32kcm")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -67,7 +67,7 @@ _data = {
 "bganim": SubResource("Animation_ba5xq")
 }
 
-[node name="main" type="Node2D"]
+[node name="Main" type="Node2D"]
 metadata/_edit_lock_ = true
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -78,10 +78,10 @@ layer_0/tile_data = PackedInt32Array(196619, 0, 2, 262155, 0, 2, 327691, 0, 2, 3
 layer_1/name = "wall"
 layer_1/tile_data = PackedInt32Array(196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 0, 0, 786442, 0, 0, 851978, 0, 0, 917514, 0, 0, 983050, 0, 0, 1048586, 0, 0, 1114122, 0, 0, 1179658, 0, 0, 1245194, 0, 0, 1310730, 0, 0, 1376266, 0, 0, 1441802, 0, 0, 1507338, 0, 0, 1572874, 0, 0, 1638410, 0, 0, 1703946, 0, 0, 131083, 131072, 0, 131084, 131072, 0, 131085, 131072, 0, 131086, 131072, 0, 131087, 131072, 0, 131088, 131072, 0, 131089, 131072, 0, 131090, 131072, 0, 131091, 131072, 0, 131092, 131072, 0, 131093, 131072, 0, 131094, 131072, 0, 131095, 131072, 0, 131096, 131072, 0, 131097, 131072, 0, 131098, 131072, 0, 131099, 131072, 0, 131100, 131072, 0, 131101, 131072, 0, 131102, 131072, 0, 131103, 131072, 0, 131104, 131072, 0, 131105, 131072, 0, 131106, 131072, 0, 131107, 131072, 0, 131108, 131072, 0, 131109, 131072, 0, 131110, 131072, 0, 131111, 131072, 0, 1769483, 262144, 0, 1769484, 262144, 0, 1769485, 262144, 0, 1769486, 262144, 0, 1769487, 262144, 0, 1769488, 262144, 0, 1769489, 262144, 0, 1769490, 262144, 0, 1769491, 262144, 0, 1769492, 262144, 0, 1769493, 262144, 0, 1769494, 262144, 0, 1769495, 262144, 0, 1769496, 262144, 0, 1769497, 262144, 0, 1769498, 262144, 0, 1769499, 262144, 0, 1769500, 262144, 0, 1769501, 262144, 0, 1769502, 262144, 0, 1769503, 262144, 0, 1769504, 262144, 0, 1769505, 262144, 0, 1769506, 262144, 0, 1769507, 262144, 0, 1769508, 262144, 0, 1769509, 262144, 0, 1769510, 262144, 0, 1769511, 262144, 0, 196648, 393216, 0, 262184, 393216, 0, 327720, 393216, 0, 393256, 393216, 0, 458792, 393216, 0, 524328, 393216, 0, 589864, 393216, 0, 655400, 393216, 0, 720936, 393216, 0, 786472, 393216, 0, 852008, 393216, 0, 917544, 393216, 0, 983080, 393216, 0, 1048616, 393216, 0, 1114152, 393216, 0, 1179688, 393216, 0, 1245224, 393216, 0, 1310760, 393216, 0, 1376296, 393216, 0, 1441832, 393216, 0, 1507368, 393216, 0, 1572904, 393216, 0, 1638440, 393216, 0, 1703976, 393216, 0)
 
-[node name="player" parent="." instance=ExtResource("1_ou6b0")]
+[node name="Player" parent="." instance=ExtResource("2_cmoog")]
 position = Vector2(187, 108)
 
-[node name="Camera2D" type="Camera2D" parent="player"]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
@@ -99,3 +99,5 @@ libraries = {
 "": SubResource("AnimationLibrary_4ixdu")
 }
 autoplay = "bganim"
+
+[node name="BulletContainer" type="Node" parent="." groups=["BulletContainer"]]

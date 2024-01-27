@@ -1,14 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://csp2tes454qay"]
 
-[ext_resource type="Script" path="res://scripts/player.cs" id="1_ucxy4"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_85bmo"]
 [ext_resource type="Texture2D" uid="uid://ctlvsph1gkigh" path="res://assets/player.png" id="2_nlxmr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lin5"]
 radius = 4.0
 
-[node name="player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_ucxy4")
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_85bmo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_nlxmr")
