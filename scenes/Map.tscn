@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ldtlkbx5xbk"]
+
+[ext_resource type="PackedScene" uid="uid://m2wcg6myd6j" path="res://scenes/Socket.tscn" id="1_8onsm"]
+[ext_resource type="PackedScene" uid="uid://viqohfx2ouuf" path="res://scenes/Background.tscn" id="2_e8n07"]
+
+[node name="Map" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("2_e8n07")]
+metadata/_edit_lock_ = true
+
+[node name="Sockets" type="Node" parent="."]
+
+[node name="Group1" type="Node" parent="Sockets"]
+
+[node name="Socket" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+metadata/_edit_lock_ = true
+
+[node name="Socket2" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(-20, -4)
+metadata/_edit_lock_ = true
+
+[node name="Socket3" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(4, 20)
+metadata/_edit_lock_ = true
+
+[node name="Socket4" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(4, -28)
+metadata/_edit_lock_ = true
+
+[node name="Socket5" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(28, -4)
+metadata/_edit_lock_ = true
+
+[node name="Socket6" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(28, -28)
+metadata/_edit_lock_ = true
+
+[node name="Socket7" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(-20, -28)
+metadata/_edit_lock_ = true
+
+[node name="Socket8" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(-20, 20)
+metadata/_edit_lock_ = true
+
+[node name="Socket9" parent="Sockets/Group1" instance=ExtResource("1_8onsm")]
+position = Vector2(28, 20)
+metadata/_edit_lock_ = true
+
+[node name="Group2" type="Node" parent="Sockets"]
+
+[node name="Socket" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(124, -4)
+
+[node name="Socket2" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(100, -4)
+
+[node name="Socket3" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(124, 20)
+
+[node name="Socket4" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(124, -28)
+
+[node name="Socket5" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(148, -4)
+
+[node name="Socket6" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(148, -28)
+
+[node name="Socket7" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(100, -28)
+
+[node name="Socket8" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(100, 20)
+
+[node name="Socket9" parent="Sockets/Group2" instance=ExtResource("1_8onsm")]
+position = Vector2(148, 20)
+
+[node name="Bridge" type="Node" parent="Sockets"]
+
+[node name="Socket" parent="Sockets/Bridge" instance=ExtResource("1_8onsm")]
+position = Vector2(52, -4)
+
+[node name="Socket2" parent="Sockets/Bridge" instance=ExtResource("1_8onsm")]
+position = Vector2(76, -4)
