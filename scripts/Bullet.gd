@@ -11,9 +11,8 @@ func prepare_shot(from, direction):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	velocity = direction * speed
-	move_and_slide()
+func _physics_process(delta):
+	pass
 
 
 func _on_hitbox_body_entered(body):
