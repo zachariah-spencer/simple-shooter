@@ -6,6 +6,7 @@
 size = Vector2(8, 8)
 
 [node name="Socket" type="Area2D" groups=["Socket"]]
+z_index = -2
 position = Vector2(4, -4)
 collision_layer = 8
 collision_mask = 0

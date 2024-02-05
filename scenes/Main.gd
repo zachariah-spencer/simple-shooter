@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 enum TURN_ORDER{
 	World,
@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if current_turn == TURN_ORDER.World and Input.is_action_just_pressed("debug_end_world_turn"):
 		print("Ending World's Turn")
 		_begin_player_turn()

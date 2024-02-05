@@ -4,11 +4,12 @@ var speed = 8.0 * 16.0
 var moving := false
 var targeted_socket = null
 var turn_active := true
-var ap := 2
-var max_ap := 2
+var ap := 3
+var max_ap := 3
 
 var ap_costs = {
-	"move" : 1
+	"move" : 1,
+	"shoot" : 1
 }
 
 @onready var crosshair := $Crosshair
@@ -20,22 +21,11 @@ signal player_turn_ended
 func get_input():
 	_get_targeted_socket()
 	if Input.is_action_just_pressed("move"):
-		if not moving and ap >= ap_costs["move"]:
+		if targeted_socket and not moving and ap >= ap_costs["move"]:
 			_move()
 	
-	if targeted_socket and Input.is_action_just_pressed("shoot"):
+	if targeted_socket and Input.is_action_just_pressed("shoot") and ap >= ap_costs["shoot"]:
 		_shoot()
-	
-	## Basic attack functionality
-	#if Input.is_action_just_pressed("shoot"):
-		#var mouse_direction = self.global_position.direction_to(get_global_mouse_position())
-		#var offset = mouse_direction * 5
-		#
-		#var bullet_scene = preload("res://scenes/Bullet.tscn")
-		#var bullet_instance = bullet_scene.instantiate()
-		#bullet_instance.global_position = self.global_position + offset
-		#bullet_instance.prepare_shot(self, mouse_direction)
-		#get_tree().get_nodes_in_group("BulletContainer")[0].call_deferred("add_child", bullet_instance)
 
 func _get_targeted_socket():
 	if not moving:
@@ -60,22 +50,27 @@ func _get_targeted_socket():
 			crosshair.visible = true
 
 func _move():
-	ap -= 1
+	_use_action_point()
 	crosshair.visible = false
 	moving = true
 	anims.get_animation("move").track_set_key_value(0, 0, global_position)
 	anims.get_animation("move").track_set_key_value(0, 1, targeted_socket.global_position)
 	anims.play("move")
+	targeted_socket = null
 
 func _shoot():
+	_use_action_point()
 	var direction = global_position.direction_to(targeted_socket.global_position)
-	var offset = direction * 5
+	var spawn_position = targeted_socket.global_position
 	
 	var bullet_scene = preload("res://scenes/Bullet.tscn")
 	var bullet_instance = bullet_scene.instantiate()
-	bullet_instance.global_position = self.global_position + offset
+	bullet_instance.global_position = spawn_position
 	bullet_instance.prepare_shot(self, direction)
 	get_tree().get_nodes_in_group("BulletContainer")[0].call_deferred("add_child", bullet_instance)
+	
+	crosshair.visible = false
+	targeted_socket = null
 
 func _check_action_points():
 	if ap == 0:
@@ -88,10 +83,11 @@ func begin_turn():
 func _end_turn():
 	print("Ending Player's Turn")
 	emit_signal("player_turn_ended")
+	crosshair.visible = false
 	turn_active = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	if turn_active:
 		get_input();
 		_check_action_points()
@@ -100,3 +96,7 @@ func _physics_process(delta):
 func _on_anims_animation_finished(anim_name):
 	if(anim_name == "move"):
 		moving = false
+
+func _use_action_point():
+	ap -= 1
+	Events.tick_elapsed.emit()
