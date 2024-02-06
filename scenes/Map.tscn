@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://viqohfx2ouuf" path="res://scenes/Background.tscn" id="2_e8n07"]
 
 [node name="Map" type="Node2D"]
+metadata/_edit_lock_ = true
 
 [node name="Background" parent="." instance=ExtResource("2_e8n07")]
 metadata/_edit_lock_ = true
