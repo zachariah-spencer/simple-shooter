@@ -1,9 +1,12 @@
 extends Area2D
 
+const OBJECT_TYPE := ObjectTypes.OBJECT_TYPES.Projectile
+
 var speed := 8.0 * 16.0
 var direction := Vector2.ZERO
 var from : Node2D
 var targeted_socket = null
+var object_id 
 
 @onready var anims := $Anims
 @onready var scanner := $Scanner
@@ -25,6 +28,12 @@ func _travel():
 		anims.play("bullet_travel")
 	else:
 		queue_free()
-	
-func _on_body_entered(_body):
+
+
+func _on_area_entered(area):
+	if "OBJECT_TYPE" in area:
+		if area.OBJECT_TYPE == ObjectTypes.OBJECT_TYPES.Enemy:
+			var enemy = area
+			
+			enemy.take_damage()
 	queue_free()

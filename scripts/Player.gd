@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+const OBJECT_TYPE := ObjectTypes.OBJECT_TYPES.Player
 var speed = 8.0 * 16.0
 var moving := false
 var targeted_socket = null
@@ -14,12 +15,20 @@ var ap_costs = {
 
 @onready var crosshair := $Crosshair
 @onready var move_scanner := $MoveScanner
+@onready var enemy_scanner := $EnemyScanner
 @onready var anims := $Anims
 
 signal player_turn_ended
 
 func get_input():
+	
+	var enemy_at_target : bool = enemy_scanner.is_colliding()
+	
 	_get_targeted_socket()
+	
+	if enemy_at_target:
+		print('HERE')
+	
 	if Input.is_action_just_pressed("move"):
 		if targeted_socket and not moving and ap >= ap_costs["move"]:
 			_move()
@@ -48,6 +57,10 @@ func _get_targeted_socket():
 			
 			crosshair.global_position = targeted_socket.global_position
 			crosshair.visible = true
+
+func _check_for_enemy(input_dir):
+	enemy_scanner.position = input_dir * 12
+	enemy_scanner.target_position = input_dir * 16
 
 func _move():
 	_use_action_point()

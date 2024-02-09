@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8xxaoexcw0i6"]
+[gd_scene load_steps=5 format=3 uid="uid://b8xxaoexcw0i6"]
 
 [ext_resource type="Script" path="res://scenes/Main.gd" id="1_onao4"]
 [ext_resource type="PackedScene" uid="uid://b5ldtlkbx5xbk" path="res://scenes/Map.tscn" id="2_51oy4"]
 [ext_resource type="PackedScene" uid="uid://csp2tes454qay" path="res://scenes/Player.tscn" id="3_as2h3"]
+[ext_resource type="PackedScene" uid="uid://o1loes5uv06r" path="res://scenes/Enemy.tscn" id="4_t8c3k"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_onao4")
@@ -20,3 +21,6 @@ position = Vector2(4, -4)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(8, 8)
 position_smoothing_enabled = true
+
+[node name="Enemy" parent="." instance=ExtResource("4_t8c3k")]
+position = Vector2(28, -4)
