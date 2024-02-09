@@ -1,9 +1,13 @@
 extends CharacterBody2D
 
 const OBJECT_TYPE := ObjectTypes.OBJECT_TYPES.Player
+const GRID_PADDING := 16.0
+const PLAYER_SIZE := 8.0
+const CELL_SIZE := GRID_PADDING + PLAYER_SIZE
 var speed = 8.0 * 16.0
 var moving := false
 var targeted_socket = null
+var target_socket := Vector2.ZERO
 var turn_active := true
 var ap := 3
 var max_ap := 3
@@ -47,16 +51,19 @@ func _get_targeted_socket():
 			input_direction.y += 1
 		elif Input.is_action_pressed('up'):
 			input_direction.y -= 1
+		crosshair.global_position = global_position
+		crosshair.visible = true
+		crosshair.global_position += input_direction * CELL_SIZE
 		
-		move_scanner.position = input_direction * 12
-		move_scanner.target_position = input_direction * 16
-		move_scanner.enabled = true
-		if move_scanner.is_colliding():
-			targeted_socket = move_scanner.get_collider()
-			move_scanner.enabled = false
-			
-			crosshair.global_position = targeted_socket.global_position
-			crosshair.visible = true
+		#move_scanner.position = input_direction * 12
+		#move_scanner.target_position = input_direction * 16
+		#move_scanner.enabled = true
+		#if move_scanner.is_colliding():
+			#targeted_socket = move_scanner.get_collider()
+			#move_scanner.enabled = false
+			#
+			#crosshair.global_position = targeted_socket.global_position
+			#crosshair.visible = true
 
 func _check_for_enemy(input_dir):
 	enemy_scanner.position = input_dir * 12

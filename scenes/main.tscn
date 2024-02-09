@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/Main.gd" id="1_onao4"]
 [ext_resource type="PackedScene" uid="uid://b5ldtlkbx5xbk" path="res://scenes/Map.tscn" id="2_51oy4"]
-[ext_resource type="PackedScene" uid="uid://csp2tes454qay" path="res://scenes/Player.tscn" id="3_as2h3"]
+[ext_resource type="PackedScene" uid="uid://csp2tes454qay" path="res://scenes/player.tscn" id="3_as2h3"]
 [ext_resource type="PackedScene" uid="uid://o1loes5uv06r" path="res://scenes/Enemy.tscn" id="4_t8c3k"]
 
 [node name="Main" type="Node"]
@@ -11,16 +11,18 @@ metadata/_edit_lock_ = true
 
 [node name="BulletContainer" type="Node" parent="." groups=["BulletContainer"]]
 
-[node name="Map" parent="." instance=ExtResource("2_51oy4")]
-position = Vector2(44, 52)
-metadata/_edit_group_ = true
+[node name="World" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("3_as2h3")]
+[node name="Player" parent="World" instance=ExtResource("3_as2h3")]
 position = Vector2(4, -4)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="World/Player"]
 zoom = Vector2(8, 8)
 position_smoothing_enabled = true
 
-[node name="Enemy" parent="." instance=ExtResource("4_t8c3k")]
+[node name="Enemy" parent="World" instance=ExtResource("4_t8c3k")]
 position = Vector2(28, -4)
+
+[node name="Map" parent="World" instance=ExtResource("2_51oy4")]
+position = Vector2(44, 52)
+metadata/_edit_group_ = true
