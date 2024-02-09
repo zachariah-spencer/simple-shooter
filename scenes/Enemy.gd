@@ -10,5 +10,8 @@ func take_damage(damage: int = 1):
 	if hp <= 0:
 		die()
 
+func take_turn():
+	print("Enemy " + str(self) + " Taking Turn")
+
 func die():
 	queue_free()

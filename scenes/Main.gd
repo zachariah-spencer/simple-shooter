@@ -27,6 +27,10 @@ func _begin_player_turn():
 
 func _take_world_turn():
 	current_turn = TURN_ORDER.World
+	
+	for enemy in get_tree().get_nodes_in_group("Enemies"):
+		enemy.take_turn()
+	
 	print("Beginning World's Turn")
 	
 	#Trigger beginning of AI Logic here

@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uya1"]
 size = Vector2(8, 8)
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_mswxs")
