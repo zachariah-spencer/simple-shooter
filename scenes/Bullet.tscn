@@ -39,8 +39,9 @@ texture = ExtResource("2_m4ego")
 shape = SubResource("RectangleShape2D_4yq2m")
 
 [node name="Scanner" type="RayCast2D" parent="."]
+enabled = false
 target_position = Vector2(0, 0)
-collision_mask = 8
+collision_mask = 16
 collide_with_areas = true
 
 [node name="Anims" type="AnimationPlayer" parent="."]

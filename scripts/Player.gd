@@ -30,16 +30,19 @@ func get_input():
 	var enemy_at_target : bool = enemy_scanner.is_colliding()
 	
 	_get_targeted_socket()
-	
 	if enemy_at_target:
 		print('HERE')
 	
 	if Input.is_action_just_pressed("move"):
-		if targeted_socket and not moving and ap >= ap_costs["move"]:
-			_move()
+		if not move_scanner.is_colliding():
+			if ap >= ap_costs["move"] and not moving:
+				_move()
+		else:
+			print("MAP_BOUNDARY_HIT")
 	
-	if targeted_socket and Input.is_action_just_pressed("shoot") and ap >= ap_costs["shoot"]:
-		_shoot()
+	if Input.is_action_just_pressed("shoot"):
+			if ap >= ap_costs["shoot"]:
+				_shoot()
 
 func _set_direction(vector_component: String, amount: int):
 	input_direction = Vector2.ZERO
@@ -49,7 +52,7 @@ func _set_direction(vector_component: String, amount: int):
 		input_direction.y += amount
 	
 	crosshair.visible = true
-	move_scanner.target_position = input_direction * 32
+	move_scanner.target_position = input_direction * 16
 	target_socket_position = self.global_position + (input_direction * CELL_SIZE)
 	crosshair.global_position = target_socket_position
 
@@ -63,34 +66,24 @@ func _get_targeted_socket():
 			_set_direction("y", 1)
 		elif Input.is_action_just_pressed('up'):
 			_set_direction("y", -1)
-		
-		
-		
-		move_scanner.enabled = true
-		if move_scanner.is_colliding():
-			targeted_socket = move_scanner.get_collider()
-			move_scanner.enabled = false
-			
-			crosshair.global_position = targeted_socket.global_position
-			crosshair.visible = true
 
 func _check_for_enemy(input_dir):
 	enemy_scanner.position = input_dir * 12
 	enemy_scanner.target_position = input_dir * 16
 
 func _move():
+	print("moving")
 	_use_action_point()
 	crosshair.visible = false
 	moving = true
 	anims.get_animation("move").track_set_key_value(0, 0, global_position)
-	anims.get_animation("move").track_set_key_value(0, 1, targeted_socket.global_position)
+	anims.get_animation("move").track_set_key_value(0, 1, target_socket_position)
 	anims.play("move")
-	targeted_socket = null
 
 func _shoot():
 	_use_action_point()
-	var direction = global_position.direction_to(targeted_socket.global_position)
-	var spawn_position = targeted_socket.global_position
+	var direction = global_position.direction_to(target_socket_position)
+	var spawn_position = target_socket_position
 	
 	var bullet_scene = preload("res://scenes/Bullet.tscn")
 	var bullet_instance = bullet_scene.instantiate()
@@ -99,7 +92,6 @@ func _shoot():
 	get_tree().get_nodes_in_group("BulletContainer")[0].call_deferred("add_child", bullet_instance)
 	
 	crosshair.visible = false
-	targeted_socket = null
 
 func _check_action_points():
 	if ap == 0:
