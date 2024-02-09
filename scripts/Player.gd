@@ -7,7 +7,8 @@ const CELL_SIZE := GRID_PADDING + PLAYER_SIZE
 var speed = 8.0 * 16.0
 var moving := false
 var targeted_socket = null
-var target_socket := Vector2.ZERO
+var target_socket_position := Vector2.ZERO
+var input_direction := Vector2.ZERO
 var turn_active := true
 var ap := 3
 var max_ap := 3
@@ -42,28 +43,38 @@ func get_input():
 
 func _get_targeted_socket():
 	if not moving:
-		var input_direction = Vector2.ZERO
-		if Input.is_action_pressed('right'):
+		if Input.is_action_just_pressed('right'):
+			input_direction = Vector2.ZERO
 			input_direction.x += 1
-		elif Input.is_action_pressed('left'):
+			crosshair.visible = true
+			move_scanner.target_position = input_direction * 16
+		elif Input.is_action_just_pressed('left'):
+			input_direction = Vector2.ZERO
 			input_direction.x -= 1
-		elif Input.is_action_pressed('down'):
+			crosshair.visible = true
+			move_scanner.target_position = input_direction * 16
+		elif Input.is_action_just_pressed('down'):
+			input_direction = Vector2.ZERO
 			input_direction.y += 1
-		elif Input.is_action_pressed('up'):
+			crosshair.visible = true
+			move_scanner.target_position = input_direction * 16
+		elif Input.is_action_just_pressed('up'):
+			input_direction = Vector2.ZERO
 			input_direction.y -= 1
-		crosshair.global_position = global_position
-		crosshair.visible = true
-		crosshair.global_position += input_direction * CELL_SIZE
+			crosshair.visible = true
+			move_scanner.target_position = input_direction * 16
 		
-		#move_scanner.position = input_direction * 12
-		#move_scanner.target_position = input_direction * 16
-		#move_scanner.enabled = true
-		#if move_scanner.is_colliding():
-			#targeted_socket = move_scanner.get_collider()
-			#move_scanner.enabled = false
-			#
-			#crosshair.global_position = targeted_socket.global_position
-			#crosshair.visible = true
+		target_socket_position = self.global_position + (input_direction * CELL_SIZE)
+		crosshair.global_position = target_socket_position
+		
+		
+		move_scanner.enabled = true
+		if move_scanner.is_colliding():
+			targeted_socket = move_scanner.get_collider()
+			move_scanner.enabled = false
+			
+			crosshair.global_position = targeted_socket.global_position
+			crosshair.visible = true
 
 func _check_for_enemy(input_dir):
 	enemy_scanner.position = input_dir * 12
