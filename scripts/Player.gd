@@ -41,31 +41,29 @@ func get_input():
 	if targeted_socket and Input.is_action_just_pressed("shoot") and ap >= ap_costs["shoot"]:
 		_shoot()
 
+func _set_direction(vector_component: String, amount: int):
+	input_direction = Vector2.ZERO
+	if vector_component == "x":
+		input_direction.x += amount
+	elif vector_component == "y":
+		input_direction.y += amount
+	
+	crosshair.visible = true
+	move_scanner.target_position = input_direction * 32
+	target_socket_position = self.global_position + (input_direction * CELL_SIZE)
+	crosshair.global_position = target_socket_position
+
 func _get_targeted_socket():
 	if not moving:
 		if Input.is_action_just_pressed('right'):
-			input_direction = Vector2.ZERO
-			input_direction.x += 1
-			crosshair.visible = true
-			move_scanner.target_position = input_direction * 16
+			_set_direction("x", 1)
 		elif Input.is_action_just_pressed('left'):
-			input_direction = Vector2.ZERO
-			input_direction.x -= 1
-			crosshair.visible = true
-			move_scanner.target_position = input_direction * 16
+			_set_direction("x", -1)
 		elif Input.is_action_just_pressed('down'):
-			input_direction = Vector2.ZERO
-			input_direction.y += 1
-			crosshair.visible = true
-			move_scanner.target_position = input_direction * 16
+			_set_direction("y", 1)
 		elif Input.is_action_just_pressed('up'):
-			input_direction = Vector2.ZERO
-			input_direction.y -= 1
-			crosshair.visible = true
-			move_scanner.target_position = input_direction * 16
+			_set_direction("y", -1)
 		
-		target_socket_position = self.global_position + (input_direction * CELL_SIZE)
-		crosshair.global_position = target_socket_position
 		
 		
 		move_scanner.enabled = true
