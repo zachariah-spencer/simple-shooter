@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbi6l4crrf66u"]
+
+[ext_resource type="Texture2D" uid="uid://cr7i2sbuyc8xv" path="res://assets/enemy1.png" id="1_3ye04"]
+[ext_resource type="Script" path="res://scenes/EnemySpawner.gd" id="1_gwnah"]
+
+[node name="EnemySpawner" type="Marker2D"]
+script = ExtResource("1_gwnah")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.215686, 1)
+texture = ExtResource("1_3ye04")
